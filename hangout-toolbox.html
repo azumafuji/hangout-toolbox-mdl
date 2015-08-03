@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<!-- index.html -->
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=300px, initial-scale=1.0">
+    <script src="https://plus.google.com/talkgadget/apps/gadgets/js/rpc.js"></script>
+    <script src="https://plus.google.com/hangouts/_/api/v1/hangout.js"></script>
+    <script src="https://www.google.com/jsapi"></script>
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="js/dropdown.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.green-blue.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+              mdl-layout--fixed-tabs">
+    <header class="mdl-layout__header custom-header">
+      <div class="mdl-layout__header-row small-row-1">
+        <!-- Title -->
+        <img src="img/toolbox-32.png" class="header-image">
+        <span class="mdl-layout-title title-font"><strong>Hangout</strong> Toolbox</span>
+      </div>
+      <!-- Tabs -->
+      <div class="mdl-layout__tab-bar mdl-js-ripple-effect small-row-2">
+        <a href="#fixed-tab-1"  class="mdl-layout__tab small-row-2 is-active"><i class="material-icons">account_box</i></a>
+        <a href="#fixed-tab-2" class="mdl-layout__tab small-row-2"><i class="material-icons">list</i></a>
+        <a href="#fixed-tab-3" class="mdl-layout__tab small-row-2"><i class="material-icons">volume_up</i></a>
+        <a href="#fixed-tab-4" class="mdl-layout__tab small-row-2"><i class="material-icons">info_outline</i></a>
+        <a href="#fixed-tab-5" class="mdl-layout__tab small-row-2"><i class="material-icons">settings</i></a>
+      </div>
+    </header>
+    <main class="mdl-layout__content">
+      <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+        <div class="page-content">
+          <div class="header-box">
+            <div class="header-title">
+              <span class="section-header">Lower Third</span>  
+            </div>
+            <div class="header-control">
+              <label id ="tt1" class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect" for="icon-toggle-1">
+                <input type="checkbox" id="icon-toggle-1" class="mdl-icon-toggle__input" />
+                <i id="tt1" class="mdl-icon-toggle__label material-icons">camera_rear</i>
+              </label>
+              <div class="mdl-tooltip" for="tt1">
+                Mirror your video
+              </div>
+            </div>
+            <div class="header-control">
+              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+                <input type="checkbox" id="switch-1" class="mdl-switch__input" />
+                <span class="mdl-switch__label"></span>
+              </label>
+            </div>
+          </div>
+          <div class="input-fields">
+            <form action="#">
+              <div id="displaynamediv" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="text" id="displayname" />
+                <label class="mdl-textfield__label" for="displayname">Display Name</label>
+              </div>
+            </form>
+            <form action="#">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="text" id="tagline" />
+                <label class="mdl-textfield__label" for="tagline">Tagline</label>
+              </div>
+            </form>
+          </div>
+          <div class="content-box">
+            <div class="content-item">
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Choose Logo
+              </button>
+            </div>
+            <div class=" content-item no-margin">
+              <form action="#">
+                <div class="mdl-select mdl-js-select mdl-select--floating-label">
+                  <select class="mdl-select__input" id="color" name="Select Color">
+                    <option value=""></option>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="green">Green</option>
+                  </select>
+                  <label class="mdl-select__label" for="professsion">Choose Color</label>
+                </div>
+              </form>
+            </div>
+          </div>
+          <hr>
+          <div class="header-box">
+            <div class="header-title">
+              <span class="section-header">Custom Overlay</span>  
+            </div>
+            <div class="header-control">
+              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+                <input type="checkbox" id="switch-2" class="mdl-switch__input" />
+                <span class="mdl-switch__label"></span>
+              </label>
+            </div>
+            
+          </div>
+          <div>
+            <div class="content-box">
+              <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                Upload Overlay
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+        <div class="page-content">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--13-col">
+              <span class="section-header">Presets</span>  
+            </div>
+          </div>
+          <div class="content-box">
+            <div class="content-item-2">
+              <form action="#">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                  <input class="mdl-textfield__input" type="text" id="preset" />
+                  <label class="mdl-textfield__label" for="preset">Preset Name</label>
+                </div>
+              </form>
+            </div>
+            <div>
+              <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored mdl-js-ripple-effect">
+                <i class="material-icons">add</i>
+              </button>
+            </div>
+          </div>
+          <div class="mdl-card mdl-shadow--3dp card-wide">
+            <div class="mdl-card__title">
+              <h2 class="mdl-card__title-text">Work in progress</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+              This section of the app is not ready yet.
+              Please come back later.
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+        <div class="page-content">
+          <div class="header-box">
+            <div class="header-title">
+              <span class="section-header">Volume Control</span>  
+            </div>
+            <div class="header-control">
+              <label id="tt2" class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect" for="icon-toggle-2">
+                <input type="checkbox" id="icon-toggle-2" class="mdl-icon-toggle__input" />
+                <i class="mdl-icon-toggle__label material-icons">volume_off</i>
+              </label>
+              <div class="mdl-tooltip" for="tt2">
+                Mute all
+              </div>
+            </div>
+          </div>
+          <div class="participant-list">
+            <div class="participant-item">
+              <div class="participant-image"><img src="img/profile.png" class="circle"></div>
+              <div class="participant-controls">
+                <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="50" tabindex="0"/>
+              </div>
+            </div>
+            <div class="participant-item">
+              <div class="participant-image"><img src="img/profile.png" class="circle"></div>
+              <div class="participant-controls">
+                <input class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="50" tabindex="0"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="mdl-layout__tab-panel" id="fixed-tab-4">
+        <div class="page-content">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--13-col">
+              <span class="section-header">About</span>  
+            </div>
+          </div>
+          <div class="text-content">
+            Hangout Toolbox provides useful<br>
+            applications to improve your Hangout<br>
+            experience.<br><br>
+            For an even better experience,<br>
+            try <a href ="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">Google Chrome</a><br><br>
+            Version: 3.0.0
+          </div>
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--13-col">
+              <span class="section-header">Support</span>  
+            </div>
+          </div>
+          <div class="text-content">
+            <a href="https://github.com/MoritzT/hangout-toolbox" target="_blank" class="link-list">Github</a>
+            <a href="http://hangouttoolbox.com/" target="_blank" class="link-list">Website</a>
+            <a href="https://github.com/MoritzT/hangout-toolbox/issues/new" target="_blank" class="link-list">Report Issues</a>
+            <a href="https://plus.google.com/+Hangouttoolbox/posts" target="_blank" class="link-list">Follow us on Google+</a>
+          </div>
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--13-col">
+              <span class="section-header">Disclaimer</span>  
+            </div>
+          </div>
+          <div class="text-content">
+          Hangout Toolbox is not affiliated with, sponsored by, or endorsed by Google Inc.<br><br>
+          &copy; 2015 Hangout Toolbox | Moritz Tolxdorff
+          </div>
+        </div>
+      </section>
+      <section class="mdl-layout__tab-panel" id="fixed-tab-5">
+        <div class="page-content">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--13-col">
+              <span class="section-header">Settings</span>  
+            </div>
+          </div>
+          <div class="content-box">
+            <div class="content-item">Enable Auto-Load</div>
+            <div>
+              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-3">
+                <input type="checkbox" id="switch-3" class="mdl-switch__input" />
+                <span class="mdl-switch__label"></span>
+              </label>
+            </div>
+          </div>
+          <div class="content-box">
+            <div class="content-item">Mute notification sounds</div>
+            <div>
+              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-4">
+                <input type="checkbox" id="switch-4" class="mdl-switch__input" />
+                <span class="mdl-switch__label"></span>
+              </label>
+            </div>
+          </div>
+          <div class="content-box">
+            <div class="content-item">Load last Lower Third</div>
+            <div>
+              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-5">
+                <input type="checkbox" id="switch-5" class="mdl-switch__input" />
+                <span class="mdl-switch__label"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="js/hangout-toolbox.js"></script>
+  </body>
+</html>
