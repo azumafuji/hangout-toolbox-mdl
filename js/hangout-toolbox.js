@@ -6,11 +6,11 @@
       hapi,
       document = global.document,
       console = global.console,
-      mainCanvas = null.
+      mainCanvas = null,
       backgroundCanvas = null,
       imageCanvas = null,
       overlays = {},
-      i;
+      i, mainctx, backgroundctx, imagectx, backgroundUrl;
       
     if (global.gapi && global.gapi.hangout) {
       hapi = global.gapi.hangout;
@@ -57,11 +57,11 @@
       backgroundctx.fillStyle = scolor;
       backgroundctx.fillRect(0,660,1024,30);
       //Text
-      backgroundctx.font = "300 42px RobotoDraft";
+      backgroundctx.font = "300 42px Roboto2";
       backgroundctx.fillStyle = fcolor;
       backgroundctx.fillText(document.getElementById('displayname').value,160,645);
   
-      backgroundctx.font = "300 22px RobotoDraft";
+      backgroundctx.font = "300 22px Roboto2";
       backgroundctx.fillStyle = fcolor;
       backgroundctx.fillText(document.getElementById('tagline').value,160,682);
   
@@ -85,7 +85,6 @@
         imagectx.drawImage(img,30,550,96,96);
         mainctx.drawImage(imageCanvas, 0, 0);
       
-        console.log(mainCanvas.toDataURL());
         var canvasImage = hapi.av.effects.createImageResource(mainCanvas.toDataURL());
             
         overlays['lowerthird'] = canvasImage.createOverlay({});
@@ -96,15 +95,28 @@
       img.src = src;
     }
     
-    function toggleLOwerThird() {
-      createBackground();
-      createProfileCircle(getParticipantImageUrl);
+    function toggleLowerThird() {
+      if($('#switch-1-label').hasClass('is-checked') === true) {
+        if(overlays['lowerthird']){
+          console.log("Removing overlay");
+          overlays['lowerthird'].setVisible(false);
+          overlays['lowerthird'].dispose();
+          delete overlays['lowerthird'];
+        }
+      } else {
+        createBackground();
+        var imageUrl = getParticipantImageUrl();
+        createProfileCircle(imageUrl);
+      }
     }
     
     function initialize() {
-	    mainCanvas = document.getElementById("mainCanvas");
-      backgroundCanvas = document.getElementById("backgroundCanvas");
-      imageCanvas = document.getElementById("imageCanvas");
+      mainCanvas = $('<canvas id="mainCanvas" height="720px" width="1280px"/>');
+      mainCanvas = mainCanvas.get(0);
+      backgroundCanvas = $('<canvas id="backgroundCanvas" height="720px" width="1280px"/>');
+      backgroundCanvas = backgroundCanvas.get(0);
+      imageCanvas = $('<canvas id="imageCanvas" height="720px" width="1280px"/>');
+      imageCanvas = imageCanvas.get(0);
       mainctx = mainCanvas.getContext("2d");
       backgroundctx = backgroundCanvas.getContext("2d");
       imagectx = imageCanvas.getContext("2d");
