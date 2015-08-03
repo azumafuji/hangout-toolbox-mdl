@@ -10,6 +10,7 @@
       backgroundCanvas = null,
       imageCanvas = null,
       overlays = {},
+      globalMuted = false,
       i, mainctx, backgroundctx, imagectx, backgroundUrl;
       
     if (global.gapi && global.gapi.hangout) {
@@ -18,7 +19,9 @@
       console.log("Hangout API not found...");
       return;
     }
-    
+    /*
+    ####################### LOWER THIRD ############################
+    */
     function mirrorVideo() {
       hapi.av.setLocalParticipantVideoMirrored(!gapi.hangout.av.isLocalParticipantVideoMirrored());
     }
@@ -57,11 +60,11 @@
       backgroundctx.fillStyle = scolor;
       backgroundctx.fillRect(0,660,1024,30);
       //Text
-      backgroundctx.font = "300 42px Roboto2";
+      backgroundctx.font = "42px Arial";
       backgroundctx.fillStyle = fcolor;
       backgroundctx.fillText(document.getElementById('displayname').value,160,645);
   
-      backgroundctx.font = "300 22px Roboto2";
+      backgroundctx.font = "22px Arial";
       backgroundctx.fillStyle = fcolor;
       backgroundctx.fillText(document.getElementById('tagline').value,160,682);
   
@@ -110,12 +113,67 @@
       }
     }
     
+    /*
+    ####################### VOLUME CONTROL ###################
+    */
+    
+    function generateParticipantList() {
+      var uid = hapi.getLocalParticipantId();
+  	  var p   = hapi.getParticipants();
+  	  var plist  = jQuery("#participant-list");
+  	  jQuery("div",plist).remove();
+  	  for(i = 0; i < p.length; i++) {
+  	    var cUser = p[i];
+  	    var pitemdiv = createElement("div", {"id": "participant_" + cUser.id, "class":"participant-item"}).data("participant",cUser);
+  	    var pimagediv = createElement("div", {"class": "participant-image"});
+  	    var pimage = createElement("img", {"src": cUser.person.image.url, "title": cUser.person.displayName, "class": "circle"}).appendTo(pimagediv);
+  	    var pcontrolsdiv = createElement("div", {"class": "participant-controls"});
+  	    var slider = document.createElement('input');
+  	    slider.className = "mdl-slider mdl-js-slider";
+  	    slider.setAttribute("type", "range");
+  	    slider.setAttribute("min", "0");
+  	    slider.setAttribute("max", "2");
+  	    slider.setAttribute("id", cUser.id);
+  	    slider.setAttribute("step", "0.1");
+  	    slider.setAttribute("value", hapi.av.getParticipantAudioLevel(cUser.id)[0]);
+  	   // componentHandler.upgradeElement(slider);
+  	    pcontrolsdiv.append(slider);
+  	    pitemdiv.append(pimagediv);
+  	    pitemdiv.append(pcontrolsdiv);
+  	    plist.append(pitemdiv);
+  	    componentHandler.upgradeElement(slider);
+  	    slider.addEventListener("change", onSliderChange);
+  	  }
+    }
+    
+    function onSliderChange(evt) {
+      console.log(evt);
+      var level = evt.target.value;
+      var id = evt.target.id;
+      if(level < 1){
+		    level = parseFloat(level);
+		    gapi.hangout.av.setParticipantAudioLevel(id, level);
+    	}else{
+    		if(level < 1.9){
+    			level = ((level - 1) * 10) + 1;	
+    		}else{
+    			level = ((level - 1) * 10);
+    		}
+    		gapi.hangout.av.setParticipantAudioLevel(id, level);
+    	}
+    }
+  
+    function createElement(type, attr) {
+	    return jQuery("<" + type + ">").attr(attr || {});
+    }
+    
     function initialize() {
-      mainCanvas = $('<canvas id="mainCanvas" height="720px" width="1280px"/>');
+      gapi.hangout.onParticipantsChanged.add(generateParticipantList);
+      mainCanvas = $('<canvas id="mainCanvas" height="720px" width="1280px" style="font-family: Roboto, arial, sans-serif; font-size: 42px;"/>');
       mainCanvas = mainCanvas.get(0);
-      backgroundCanvas = $('<canvas id="backgroundCanvas" height="720px" width="1280px"/>');
+      backgroundCanvas = $('<canvas id="backgroundCanvas" height="720px" width="1280px"  style="font-family: Roboto, arial, sans-serif; font-size: 22px;"/>');
       backgroundCanvas = backgroundCanvas.get(0);
-      imageCanvas = $('<canvas id="imageCanvas" height="720px" width="1280px"/>');
+      imageCanvas = $('<canvas id="imageCanvas" height="720px" width="1280px"  style="font-family: Roboto, arial, sans-serif;"/>');
       imageCanvas = imageCanvas.get(0);
       mainctx = mainCanvas.getContext("2d");
       backgroundctx = backgroundCanvas.getContext("2d");
@@ -125,6 +183,8 @@
       document.getElementById("switch-1").onclick = toggleLowerThird;
       document.getElementById("displayname").value = getParticipantName();
       $('#displaynamediv').addClass('is-dirty');
+      
+      generateParticipantList();
     }
     
     hapi.onApiReady.add(function (e) {

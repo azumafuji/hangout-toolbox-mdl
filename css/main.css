@@ -11,6 +11,10 @@ body, html {
   background-color: #fff;
 }
 
+canvas {
+  font-family: Roboto, arial, sans-serif;
+}
+
 .mdl-layout__container {
   position: absolute;
   right: 0px;
